@@ -1,7 +1,14 @@
+import HeroesList from "@/components/HeroesList";
+import { IHeroData } from "@/interfaces/heroes";
+import heroesData from "./heroes/heroes.json"; 
+import styles from './page.module.scss'
 
 export default function Home() {
-  return (
+  const heroes: IHeroData[] = heroesData;
 
-       <h1>hello word</h1>
+  return (
+    <main className={styles.main}>
+    <HeroesList heroes={heroes} />
+    </main>
   );
 }
