@@ -6,6 +6,7 @@ import { spidermanFont } from "@/fonts";
 import styles from "./heroesList.module.scss";
 import HeroPicture from "../HeroPicture";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 
 interface IProps {
@@ -30,11 +31,17 @@ export default function HeroesList({ heroes }: IProps) {
       transition={{ duration: 2}}
       >
         {heroes.map((hero) => (
-          <div key={hero.id} 
+          <motion.div 
+          key={hero.id} 
           className={`${styles.imageContainer} ${styles[hero.id]}`}
-          >
+          whileHover={{ scale: 1.3}} 
+          whileTap={{scale: 0.8}}
+          transition={{ duration: 0.8}}
+         >
+          <Link href={`/hero/${hero.id}`}>
           <HeroPicture hero={hero} />
-          </div>
+          </Link>
+          </motion.div>
         ))}
       </motion.section>
     </>
