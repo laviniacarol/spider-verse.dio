@@ -27,6 +27,10 @@ export default function Carousel({ heroes, activeId }: IProps) {
     heroes.findIndex((hero) => hero.id === activeId) - 1
   );
 
+
+  const [startInteractionPosition, setStartInteractionPosition] = 
+   useState<number>(0);
+  
   const transitionAudio = useMemo(() => new Audio("/songs/transition.mp3"), []);
 
   const voicesAudio: Record<string, HTMLAudioElement> = useMemo(
@@ -83,6 +87,22 @@ export default function Carousel({ heroes, activeId }: IProps) {
     voiceAudio.play()
   }, [visibleItems, transitionAudio, voicesAudio])
 
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+     setStartInteractionPosition(e.clientX);
+  }
+
+  const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+    if (!startInteractionPosition) {
+      return null;
+    }
+
+    const endInteractionPosition = e.clientX;
+    const diffPosition = endInteractionPosition - startInteractionPosition
+    const newPosition = diffPosition > 0 ? -1 : 1;
+
+    handleChangeActiveIndex(newPosition);
+  };
+
   //Altera entre os heróis do carrosel
   // +1 muda no sentido horário
   // -1 muda no sentido anti-horário
@@ -99,7 +119,8 @@ export default function Carousel({ heroes, activeId }: IProps) {
       <div className={styles.carousel}>
         <div
           className={styles.wrapper}
-          onClick={() => handleChangeActiveIndex(1)}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
         >
           <AnimatePresence mode="popLayout">
             {visibleItems.map((item, position) => (
