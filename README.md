@@ -1,4 +1,4 @@
- Site desenvoldio para o curso Criando um Carrossel Parallax do Aranhaverso com React, Next.js 13 e Framer Motion, da DIO.
+ Site desenvolvido para o curso Criando um Carrossel Parallax do Aranhaverso com React, Next.js 13 e Framer Motion, da DIO.
 <br>
  Tecnologias usadas: Next.js, React, TypeScript, Framer Motion.
  <br> 
